@@ -4,6 +4,7 @@ import time
 from Dado import Dado
 import tkinter as tk
 from newWindow import NewScreen
+from windowQuestions import App
 # Inicializar Pygame
 pygame.init()
 
@@ -33,10 +34,17 @@ posicionCasillas = (
     (383, 284), (467, 284), (514, 215), (502, 135), (446, 94)
 )
 
-def mostrarVentanaPregunta():
+
+def Obtener():
     root = tk.Tk()
-    question_list = ["1", "2", "3"]
-    NewScreen(root, question_list)
+    app = App(parent=root)
+    root.mainloop()
+    return app.question_list
+
+def mostrarVentanaPregunta(questions):
+    root = tk.Tk()
+    
+    NewScreen(root, questions)
     root.mainloop()
 
 class Jugador:
@@ -71,6 +79,7 @@ jugador2 = Jugador(100, 100, speed, jugador2_imagen)  # Imagen del jugador 2
 
 indice_casilla_jugador1 = 0
 indice_casilla_jugador2 = 0
+
 def cambiarTurno():
     global jugadorActual
     if jugadorActual == 1:
@@ -96,7 +105,6 @@ def lanzar_dado_evento():
     else:
         mover_jugador_actual(jugador2, resultado_dado)
     cambiarTurno()
-
 
 
 mensaje_mostrado = False
@@ -153,7 +161,7 @@ def mover_jugador_actual(jugador, resultado_dado):
             pygame.display.update()
 
             # Pequeño retraso para visualizar el movimiento
-            pygame.time.delay(10)
+            pygame.time.delay(20)
 
         # Actualizar el índice de la casilla para el jugador correspondiente
         if jugadorActual == 1:
@@ -175,10 +183,12 @@ def manejar_eventos():
         cambiarTurno()
 
 clock = pygame.time.Clock()
-
+limpiarVentana()
+question_list = Obtener()
+print("Preguntas obtenidas:", question_list)
 while True:
     tiempo_actual = pygame.time.get_ticks()
-
+    
     limpiarVentana()
     manejar_eventos()
 
@@ -188,12 +198,12 @@ while True:
     for casilla_idx in casillas_con_pregunta:
         if jugador1.x  == posicionCasillas[casilla_idx][0] and not mostrando_pregunta:
             # Mostrar la ventana de pregunta solo una vez cuando llega a la casilla
-            mostrarVentanaPregunta()
+            mostrarVentanaPregunta(question_list)
             mostrando_pregunta = True
             break
         elif jugador2.x == posicionCasillas[casilla_idx][0] and not mostrando_pregunta:
             # Mostrar la ventana de pregunta solo una vez cuando llega a la casilla
-            mostrarVentanaPregunta()
+            mostrarVentanaPregunta(question_list)
             mostrando_pregunta = True
             
             break
