@@ -136,6 +136,7 @@ def mover_jugador_actual(jugador, resultado_dado):
 
             if jugador.x < target_x:
                 jugador.x += jugador.speed
+
             elif jugador.x > target_x:
                 jugador.x -= jugador.speed
 
@@ -146,7 +147,7 @@ def mover_jugador_actual(jugador, resultado_dado):
                 
         
 
-            #limpiarVentana()
+            limpiarVentana()
             jugador1.dibujarJugador(window)
             jugador2.dibujarJugador(window)
             pygame.display.update()
@@ -160,9 +161,7 @@ def mover_jugador_actual(jugador, resultado_dado):
         else:
             indice_casilla_jugador2 = target_casilla
 
-    
-    if (jugador.x, jugador.y) == posicionCasillas[1]:
-            mostrar_mensaje("¡Jugador 1 ha ganado!")      
+      
                  
 def manejar_eventos():
     for event in pygame.event.get():
