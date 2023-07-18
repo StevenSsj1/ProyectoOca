@@ -43,7 +43,7 @@ class NewScreen(tk.Frame):
 
     def boton_incorrecto_click(self):
         print("Respuesta incorrecta")
-        
+        return 1
     
 
 if __name__ == "_main_":

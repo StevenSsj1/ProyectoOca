@@ -31,9 +31,10 @@ jugadorActual = 1
 # Tupla con posiciones de las casillas
 posicionCasillas = (
     (124, 90), (103, 157), (106, 224), (147, 267), (217, 285),
-    (383, 284), (467, 284), (514, 215), (502, 135), (446, 94)
+    (383, 284), (467, 284), (514, 215), (502, 135), (446, 94),
+    (378,82), (313,112), (295,180), (287,239), (289,304), (285, 362),
+    (285, 362), (285, 421), (276, 474)
 )
-
 
 def Obtener():
     root = tk.Tk()
@@ -79,7 +80,6 @@ jugador2 = Jugador(100, 100, speed, jugador2_imagen)  # Imagen del jugador 2
 
 indice_casilla_jugador1 = 0
 indice_casilla_jugador2 = 0
-
 def cambiarTurno():
     global jugadorActual
     if jugadorActual == 1:
@@ -192,8 +192,12 @@ while True:
     limpiarVentana()
     manejar_eventos()
 
-    if jugador1.x == posicionCasillas[-1][0] or jugador2.x == posicionCasillas[-1][0]:
+
+    if jugador1.x == posicionCasillas[18][0] and jugador1.y == posicionCasillas[18][1] or jugador2.x == posicionCasillas[18][0] and jugador2.y == posicionCasillas[18][1]:
         mostrar_mensaje("¡Jugador {} ha ganado!".format(jugadorActual))
+        pygame.quit()
+        sys.exit()
+
 
     for casilla_idx in casillas_con_pregunta:
         if jugador1.x  == posicionCasillas[casilla_idx][0] and not mostrando_pregunta:
@@ -207,6 +211,8 @@ while True:
             mostrando_pregunta = True
             
             break
+
+
 
     jugador1.dibujarJugador(window)
     jugador2.dibujarJugador(window)
